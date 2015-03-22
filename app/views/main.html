@@ -1,0 +1,16 @@
+<div class="responses" ng-repeat="response in responses">
+<div ng-show="response.status === 200" class="success">
+	<h3 >{{response.config["url"]}}</h3>
+</div>
+	
+</div>
+
+<div class="responses" ng-repeat="response in responses">
+<div ng-hide="response.status === 200" class="error">
+	<h3>{{response.config["url"]}}</h3>
+	<pre>
+		{{response}}
+	</pre>
+</div>
+	
+</div>
