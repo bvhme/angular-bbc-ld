@@ -7,8 +7,8 @@
  * Module to do API calls to the Juicer Triplestore
  */
 angular.module('bbcld')
-    .service('juicer3', ['$http', '$q', '$log', 'juicer3settings',
-        function($http, $q, $log, juicer3settings) {
+    .service('juicer3', ['$http', '$q', '$log', '$filter', 'juicer3settings',
+        function($http, $q, $log, $filter, juicer3settings) {
             // AngularJS will instantiate a singleton by calling 'new' on this 
             // function, so 'this' object will be returned
             var factory = this;
@@ -37,10 +37,11 @@ angular.module('bbcld')
                 // Check if what is passed in is a date object, if so make 
                 // a string out of it, if it is already a string pass it on
                 if (Object.prototype.toString.call(date) === '[object Date]') {
-                    return date.toISOString();
+                    return $filter('date')(date, 'yyyy-MM-dd');
                 }
                 if (typeof date === 'number') {
-                    var string = new Date(date).toISOString();
+                    date = new Date(date);
+                    var string = $filter('date')(date, 'yyyy-MM-dd');
                     return string;
                 }
                 return date;
