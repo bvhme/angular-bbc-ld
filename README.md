@@ -6,6 +6,43 @@ Angular module for BBC Linked Data.
 First of include the file bbcld.module.js in your project, this will register the module allowing the services to cling on to it. The module has been developed so that you only have to include the modules you want to use.
 
 
+## Usage
+
+The usage is simple. 
+
+```javascript
+    module.method(_options_)
+```
+
+The module returns a promise when called, this the native way Angular keeps track of Asynchronous requests. To bind something to the result, use the `.then(succesFunction, failFunction)` method, specifying the function it should perform if it succeeds in the first argument and it's failure in the second. The success and failure functions take one argument, `data`, which is an object containing all the information related to the HTTP request inherited from ngHttp (`$http`).
+
+```javascript
+    module.method(_options_).then(_successFunction_, _failureFunction_);
+```
+
+### Example:
+
+```javascript
+$scope.responses = [];
+
+var success = function(data) {
+    $log.info(data);
+    $scope.responses.push(data);
+};
+var fail = function(data) {
+    $log.error(data);
+    $scope.responses.push(data);
+};
+
+juicer3.findThingCoOccurrencesMultiHop({
+    type: 'http://dbpedia.org/ontology/Person',
+    joinPredicate: 'http://dbpedia.org/ontology/party',
+    joinObject: 'http://dbpedia.org/resource/Labour_Party_(UK)',
+    uri: 'http://dbpedia.org/resource/Len_McCluskey',
+    afterDate: '2015-01-01'
+}).then(success, fail);
+```
+
 
 ## Modules
 
@@ -14,6 +51,14 @@ First of include the file bbcld.module.js in your project, this will register th
 Returns: JSON objects or JavaScript array's
 Include: `juicer.service.js`
 
+#### Settings Set Up
+```javascript
+.module('app')
+    .constant('juicersettings', {
+        apikey: APIKEY,
+        host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
+    });
+```
 
 #### Get articles
 ```javascript
@@ -75,6 +120,15 @@ Keyword to search for. It searches in name of the source.
 Returns: JSON-LD
 Include: `juicer3.service.js`
 Dependencies: `angular-sha1`
+
+#### Settings Set Up
+```javascript
+.module('app')
+    .constant('juicer3settings', {
+        apikey: APIKEY,
+        host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
+    });
+```
 
 #### Get Thing
 ```javascript
@@ -295,44 +349,6 @@ Include: `things.service.js`
 *Have not yet been developed, so are just shim's for now*
 
 
-## Usage
-
-The usage is simple. 
-
-```javascript
-    module.method(_options_)
-```
-
-The module returns a promise when called, this the native way Angular keeps track of Asynchronous requests. To bind something to the result, use the `.then(succesFunction, failFunction)` method, specifying the function it should perform if it succeeds in the first argument and it's failure in the second. The success and failure functions take one argument, `data`, which is an object containing all the information related to the HTTP request inherited from ngHttp (`$http`).
-
-```javascript
-    module.method(_options_).then(_successFunction_, _failureFunction_);
-```
-
-### Example:
-
-```javascript
-$scope.responses = [];
-
-var success = function(data) {
-    $log.info(data);
-    $scope.responses.push(data);
-};
-var fail = function(data) {
-    $log.error(data);
-    $scope.responses.push(data);
-};
-
-juicer3.findThingCoOccurrencesMultiHop({
-    type: 'http://dbpedia.org/ontology/Person',
-    joinPredicate: 'http://dbpedia.org/ontology/party',
-    joinObject: 'http://dbpedia.org/resource/Labour_Party_(UK)',
-    uri: 'http://dbpedia.org/resource/Len_McCluskey',
-    afterDate: '2015-01-01'
-}).then(success, fail);
-```
-
-
 ## Dependencies
 The Juicer module depends on `angular-sha1` for doing a reverse lookup for URL's in the Juicer.
 
@@ -340,6 +356,23 @@ The Juicer module depends on `angular-sha1` for doing a reverse lookup for URL's
 ## Test & development
 
 Run `grunt` for building and `grunt serve` for preview, the app that will load up is the app from `app/` and will do all the calls to available endpoints returning the results on the screen.
+
+*The test is now missing an environment*
+
+You can add an environment with for example an `env.js` file
+
+```javascript
+angular
+    .module('angularBbcLdApp')
+    .constant('juicersettings', {
+        apikey: APIKEY,
+        host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
+    })
+    .constant('juicer3settings', {
+        apikey: APIKEY,
+        host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
+    });
+```
 
 ## Testing
 
