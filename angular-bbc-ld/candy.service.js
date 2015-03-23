@@ -10,5 +10,5 @@
 angular.module('bbcld')
   .service('candy', ['$log', function ($log) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    $log.error("The CANDY module for angular-bbc-ld has not yet been developed!");
+    $log.error('The CANDY module for angular-bbc-ld has not yet been developed!');
   }]);

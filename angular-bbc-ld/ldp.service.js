@@ -10,5 +10,5 @@
 angular.module('bbcld')
   .service('ldp', ['$log', function ($log) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    $log.error("The LDP module for angular-bbc-ld has not yet been developed!");
+    $log.error('The LDP module for angular-bbc-ld has not yet been developed!');
   }]);

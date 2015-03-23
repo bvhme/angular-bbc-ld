@@ -12,7 +12,7 @@ angular.module('bbcld')
             // AngularJS will instantiate a singleton by calling "new" on this function
             var factory = this;
 
-            $log.error("BBC Things does not support CORS, so using this in the Browser will not work.")
+            $log.error('BBC Things does not support CORS, so using this in the Browser will not work.');
 
             // Get JSON function prepares the request, calls $http, and 
             // creates a promise to be fulfilled
