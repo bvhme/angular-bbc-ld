@@ -300,10 +300,37 @@ Include: `things.service.js`
 The usage is simple. 
 
 ```javascript
+    module.method(_options_)
+```
+
+The module returns a promise when called, this the native way Angular keeps track of Asynchronous requests. To bind something to the result, use the `.then(succesFunction, failFunction)` method, specifying the function it should perform if it succeeds in the first argument and it's failure in the second. The success and failure functions take one argument, `data`, which is an object containing all the information related to the HTTP request inherited from ngHttp (`$http`).
+
+```javascript
     module.method(_options_).then(_successFunction_, _failureFunction_);
 ```
 
-The module returns a promise when called.
+### Example:
+
+```javascript
+$scope.responses = [];
+
+var success = function(data) {
+    $log.info(data);
+    $scope.responses.push(data);
+};
+var fail = function(data) {
+    $log.error(data);
+    $scope.responses.push(data);
+};
+
+juicer3.findThingCoOccurrencesMultiHop({
+    type: 'http://dbpedia.org/ontology/Person',
+    joinPredicate: 'http://dbpedia.org/ontology/party',
+    joinObject: 'http://dbpedia.org/resource/Labour_Party_(UK)',
+    uri: 'http://dbpedia.org/resource/Len_McCluskey',
+    afterDate: '2015-01-01'
+}).then(success, fail);
+```
 
 
 ## Dependencies
