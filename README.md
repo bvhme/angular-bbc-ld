@@ -400,14 +400,14 @@ optional thing URI from DBpedia ontology that things found will be joined with v
 
 ## Module: BBC Things
 
-`BBC Things does not support CORS, so it wont work in any browser!!!`
+**BBC Things does not support CORS, so it wont work in any browser!!!**
 
 Returns: JSON-LD
 Include: `things.service.js`
 
 ## Module: LDP & CANDY
 
-`Have not yet been developed, so are just shim's for now`
+**Have not yet been developed, so are just shim's for now**
 
 
 ## Dependencies
