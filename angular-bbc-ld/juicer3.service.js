@@ -3,8 +3,8 @@
  * @ngdoc service
  * @name bbcld.juicer3
  * @description
- * # juicer3
- * Module to do API calls to the juicer3
+ * # Juicer Triplestore
+ * Module to do API calls to the Juicer Triplestore
  */
 angular.module('bbcld')
     .service('juicer3', ['$http', '$q', '$log', 'juicer3settings',
