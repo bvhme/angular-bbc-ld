@@ -71,7 +71,7 @@ angular.module('bbcld')
                         }
                         for (var i = value.length - 1; i >= 0; i--) {
                             // Render every element from the array onto the string
-                            paramsString += '&' + key + '=' + encodeURIComponent(value[i]);
+                            paramsString += '&' + key + '=' + value[i];
                         }
                     }
                 }
