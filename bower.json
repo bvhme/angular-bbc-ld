@@ -12,5 +12,5 @@
     "angular-bbc-ld/bbcld.module.js",
     "angular-bbc-ld/juicer.service.js",
     "angular-bbc-ld/juicertriplestore.service.js"
-  ],
+  ]
 }
