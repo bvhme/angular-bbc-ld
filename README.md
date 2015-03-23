@@ -52,8 +52,8 @@ Include: `juicer.service.js`
 angular
     .module('app')
     .constant('juicersettings', {
-    apikey: APIKEY,
-    host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
+        apikey: APIKEY,
+        host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
     });
 ```
 
