@@ -16,7 +16,7 @@ angular.module('bbcld', ['angular-sha1']);
 angular
     .module('app')
     .constant('juicersettings', {
-        apikey: '9OHbOpZpVh9tQZBDjwTlTmsCF2Ce0yGQ',
+        apikey: APIKEY,
         host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
     });
 
