@@ -62,7 +62,7 @@ angular.module('bbcld')
                     var value = params[key];
 
                     // Only do something with it if it has a value
-                    if (value !== null && value !== undefined) {
+                    if (value !== null && value !== undefined && value !== '') {
                         if (typeof value === 'string') {
                             // If it is a string, make an array and put it in the 0th position
                             var valueString = value;
