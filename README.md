@@ -443,7 +443,3 @@ angular
         host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
     });
 ```
-
-
-## Testing
-Unit tests are not yet written
