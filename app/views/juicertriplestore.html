@@ -5,23 +5,20 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="panel-heading">
-                Query
+        <div class="col-md-4 col-sm-4">
+			<div class="list-group">
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getThing']" class="list-group-item" ng-click="queryType='getThing'">Get Thing</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findThingsMultiHop']" class="list-group-item" ng-click="queryType='findThingsMultiHop'">Find Things Multi-hop</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findCreativeWorks']" class="list-group-item" ng-click="queryType='findCreativeWorks'">Find Creative Works</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findCreativeWorksMultiHop']" class="list-group-item" ng-click="queryType='findCreativeWorksMultiHop'">Find Creative Works Multi Hop</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findCreativeWorksGeospatial']" class="list-group-item" ng-click="queryType='findCreativeWorksGeospatial'">Find Creative Works Geospatial</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findCreativeWorksGeoMultiHop']" class="list-group-item" ng-click="queryType='findCreativeWorksGeoMultiHop'">Find Creative Works Geospacial Multi-hop</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findTaggedThingsMultiHop']" class="list-group-item" ng-click="queryType='findTaggedThingsMultiHop'">Find Tagged Things Multi-hop</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findThingsOccurrencesMultiHop']" class="list-group-item" ng-click="queryType='findThingsOccurrencesMultiHop'">Find Things Occurrences Multi-hop</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='findThingsCoOccurrencesMultiHop']" class="list-group-item" ng-click="queryType='findThingsCoOccurrencesMultiHop'">Find Things Co-occurrences Multi-hop</a>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a ng-click="queryType='getThing'">Get Thing</a></li>
-                <li role="presentation"><a ng-click="queryType='findThingsMultiHop'">Find Things Multi-hop</a></li>
-                <li role="presentation"><a ng-click="queryType='findCreativeWorks'">Find Creative Works</a></li>
-                <li role="presentation"><a ng-click="queryType='findCreativeWorksMultiHop'">Find Creative Works Multi Hop</a></li>
-                <li role="presentation"><a ng-click="queryType='findCreativeWorksGeospatial'">Find Creative Works Geospatial</a></li>
-                <li role="presentation"><a ng-click="queryType='findCreativeWorksGeoMultiHop'">Find Creative Works Geospacial Multi-hop</a></li>
-                <li role="presentation"><a ng-click="queryType='findTaggedThingsMultiHop'">Find Tagged Things Multi-hop</a></li>
-                <li role="presentation"><a ng-click="queryType='findThingsOccurrencesMultiHop'">Find Things Occurrences Multi-hop</a></li>
-                <li role="presentation"><a ng-click="queryType='findThingsCoOccurrencesMultiHop'">Find Things Co-occurrences Multi-hop</a></li>
-            </ul>
         </div>
-        <div class="panel col-md-8">
+        <div class="col-md-8 col-sm-8 panel">
             <div class="panel-body" ng-show="queryType=='getThing'">
                 <h2>Get Thing</h2>
                 <form ng-submit="action.getThing(getThingQuery)">
@@ -318,9 +315,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="panel">
+        <div class="well">
             <div class="panel-heading">
-                Response {{responseStatus}}
+                <a href="{{responseUrl}}">Response {{responseStatus}}</a>
             </div>
             <div class="panel-body">
                 <div hljs source="response"></div>

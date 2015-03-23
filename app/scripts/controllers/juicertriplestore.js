@@ -14,6 +14,7 @@ angular.module('angularBbcLdApp')
             var success = function(data) {
                 $scope.response = '{ "status": "loading" }';
                 $scope.responseStatus = data.status;
+                $scope.responseUrl = data.config.url;
                 $scope.response = JSON.stringify(data.data, null, 4);
             };
             var failure = success;

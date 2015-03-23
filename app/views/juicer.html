@@ -1,5 +1,124 @@
 <div class="page-header">
     <div class="container">
-        <h1>Juicer 2 <small>Sandbox</small></h1>
+        <h1>Juicer v2 <small>Sandbox</small></h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+			
+
+			<div class="list-group">
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getArticles']" class="list-group-item" ng-click="queryType='getArticles'">Get Articles</a></a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getArticle']" class="list-group-item" ng-click="queryType='getArticle'">Get Article</a></a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getArticleById']" class="list-group-item" ng-click="queryType='getArticleById'">Get Article By ID</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getArticleByUrl']" class="list-group-item" ng-click="queryType='getArticleByUrl'">Get Article By URL</a>
+                <a ng-class="{true: 'active', false: 'non-active'}[queryType=='getSources']" class="list-group-item" ng-click="queryType='getSources'">Get Sources</a></a>
+            </div>
+
+        </div>
+        <div class="panel col-md-8 col-sm-8">
+            <div class="panel-body" ng-show="queryType=='getArticles'">
+                <h2>Get Article</h2>
+                <form ng-submit="action.getArticles(getArticlesQuery)">
+                    <div class="form-group">
+
+                        <label>query</label><input type="text" ng-model="getArticlesQuery.query" name="query" class="form-control" /><p class="help-block">keywords to search for. Searches in title, description and body of the article.</p>
+
+                        <label>sources</label><input type="text" ng-model="getArticlesQuery.sources" name="sources" class="form-control" /><p class="help-block">scopes the results to certain sources. Multiple products can be specified by adding multiple sources[] values. The parameter is a </p>
+
+                        <label>facets</label><input type="text" ng-model="getArticlesQuery.facets" name="facets" class="form-control" /><p class="help-block">filter the results by facets. The facets parameter is a URL-Encoded resource from dbpedia. Multiple facets can be specified by a</p>
+
+                        <label>size</label><input type="text" ng-model="getArticlesQuery.size" name="size" class="form-control" /><p class="help-block">number of results to be returned. The parameter is a number.</p>
+
+                        <label>offset</label><input type="text" ng-model="getArticlesQuery.offset" name="offset" class="form-control" /><p class="help-block">number of results to skip. It can be used with size for pagination. The parameter is a number.</p>
+
+                        <label>publishedAfter</label><input type="text" ng-model="getArticlesQuery.publishedAfter" name="publishedAfter" class="form-control" /><p class="help-block">fetch articles published after a date. The date format is in UTC. Ex: 2015-02-02T00:00:00.000Z.</p>
+
+                        <label>publishedBefore</label><input type="text" ng-model="getArticlesQuery.publishedBefore" name="publishedBefore" class="form-control" /><p class="help-block">fetch articles published before a date. The date format is in UTC. Ex: 2015-02-02T00:00:00.000Z.</p>
+
+                        <label>recentFirst</label><input type="text" ng-model="getArticlesQuery.recentFirst" name="recentFirst" class="form-control" /><p class="help-block">Sort results by date (with most recent first) instead of by relevance to keywords. The parameter can be either yes or empty.</p>
+
+                        <label>likeText</label><input type="text" ng-model="getArticlesQuery.likeText" name="likeText" class="form-control" /><p class="help-block">Return a list of articles with a text similar to the parameter. The like-text parameter is a string.</p>
+
+                        <label>likeIds</label><input type="text" ng-model="getArticlesQuery.likeIds" name="likeIds" class="form-control" /><p class="help-block">Return a list of articles similar to other articles. The parameter is a string (internal id).</p>
+
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getArticlesQuery}}</pre>
+            </div>
+
+            <div class="panel-body" ng-show="queryType=='getArticle'">
+                <h2>Get Article</h2>
+                <form ng-submit="action.getArticle(getArticleQuery)">
+                    <div class="form-group">
+
+                        <label>query</label><input type="text" ng-model="getArticleQuery" name="query" class="form-control" /><p class="help-block">Keyword to search for. It searches in the article. Can be a Juicer UUID or a URL.</p>
+
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getArticleQuery}}</pre>
+            </div>
+
+            <div class="panel-body" ng-show="queryType=='getArticleById'">
+                <h2>Get Article By ID</h2>
+                <form ng-submit="action.getArticleById(getArticleQuery)">
+                    <div class="form-group">
+
+                        <label>query</label><input type="text" ng-model="getArticleByIdQuery" name="query" class="form-control" /><p class="help-block">Get the article directly from the endpoint by passing the ID.</p>
+
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getArticleByIdQuery}}</pre>
+            </div>
+
+            <div class="panel-body" ng-show="queryType=='getArticleByUrl'">
+                <h2>Get Article By URL</h2>
+                <form ng-submit="action.getArticleByUrl(getArticleByUrlQuery)">
+                    <div class="form-group">
+
+                        <label>query</label><input type="text" ng-model="getArticleByUrlQuery" name="query" class="form-control" /><p class="help-block">The Juicer ID of every article is derived from a SHA1 hash, So if we pass the URL to a SHA generator, we will probs get a valid Juicer ID.</p>
+
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getArticleByUrlQuery}}</pre>
+            </div>
+
+			<div class="panel-body" ng-show="queryType=='getSources'">
+                <h2>Get Sources</h2>
+                <form ng-submit="action.getSources(getSourcesQuery)">
+                    <div class="form-group">
+
+                        <label>query</label><input type="text" ng-model="getSourcesQuery" name="query" class="form-control" /><p class="help-block">Keyword to search for. It searches in name of the source.</p>
+
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getSourcesQuery}}</pre>
+            </div>
+            
+        </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="well">
+            <div class="panel-heading">
+                <a href="{{responseUrl}}">Response {{responseStatus}}</a>
+            </div>
+            <div class="panel-body">
+                <div hljs source="response"></div>
+            </div>
+        </div>
     </div>
 </div>

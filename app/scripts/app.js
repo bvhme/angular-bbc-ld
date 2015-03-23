@@ -42,6 +42,10 @@ angular
         templateUrl: 'views/juicer.html',
         controller: 'JuicerCtrl'
       })
+      .when('/things', {
+        templateUrl: 'views/things.html',
+        controller: 'ThingsCtrl'
+      })
       .otherwise({
         redirectTo: '/tests'
       });
