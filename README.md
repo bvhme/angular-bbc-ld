@@ -405,6 +405,16 @@ optional thing URI from DBpedia ontology that things found will be joined with v
 Returns: JSON-LD
 Include: `things.service.js`
 
+#### Get a Thing by it's ID
+```javascript
+things.getById(_BBC Things ID_)
+```
+
+#### Get a Thing by it's URI
+```javascript
+things.getById(_BBC Things URI_)
+```
+
 ## Module: LDP & CANDY
 
 **Have not yet been developed, so are just shim's for now**
