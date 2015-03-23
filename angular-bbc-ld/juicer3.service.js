@@ -222,7 +222,7 @@ angular.module('bbcld')
                 // Finds things in the knowledge base using a full text search term. Useful for building type ahead fields to find things. Returns only things that have been tagged on creative works. Use a multihop join to find concepts via some relationship in the wider DBpedia knowledge graph.
                 // Typical use-case is for type-ahead find widgets
                 var paramsMap = {
-                    'q': params.q, // string - optional -a full text search term
+                    'q': params.query, // string - optional -a full text search term
                     'limit': params.limit, // integer - max num of suggested things to return
                     'type': params.type, // optional URI defining the ontology class to filter things on - multiple types can be specified
                     'join-predicate': params.joinPredicate, // optional predicate URI from DBpedia ontology that things found will be joined with
@@ -231,7 +231,7 @@ angular.module('bbcld')
 
                 return factory.getJSON('things/tagged', paramsMap);
             };
-            factory.findThingOccurrencesMultiHop = function(params) {
+            factory.findThingsOccurrencesMultiHop = function(params) {
                 // Finds most frequently tagged things in the knowledge base.
 
                 // Correct dates to the correct format if they are a Date() object
@@ -250,7 +250,7 @@ angular.module('bbcld')
 
                 return factory.getJSON('things/occurrences', paramsMap);
             };
-            factory.findThingCoOccurrencesMultiHop = function(params) {
+            factory.findThingsCoOccurrencesMultiHop = function(params) {
                 // Finds most frequently tagged things in the knowledge base, co-occurring with a supplied thing
 
                 // Correct dates to the correct format if they are a Date() object
