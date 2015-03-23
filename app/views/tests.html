@@ -1,0 +1,29 @@
+<div class="container">
+<div class="row">
+    <a ng-click="executeTests()" class="btn-primary btn-lg pull-right">Execute tests</a>
+    <h1>Tests <span class="label label-danger" ng-show="failure.length > 0">{{failure.length}} FAILED</span></h1>
+</div>
+</div>
+<div class="container">
+<div class="row" ng-repeat="response in failure">
+    <div class="panel panel-danger" ng-hide="response.status === 200">
+        <div class="panel-heading">
+            Error {{response.status}}
+        </div>
+        <div class="panel-body" class="panel-body danger">
+            <h4 class="bg-danger" style="word-wrap: break-word;">{{response.config["url"] | decodeURI}}</h4>
+            <div hljs source="response.data"></div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-repeat="response in success">
+    <div class="panel panel-success" ng-show="response.status === 200">
+        <div class="panel-heading">
+            Success {{response.status}}
+        </div>
+        <div class="panel-body info">
+            <h4 class="bg-info" style="word-wrap: break-word;">{{response.config["url"]}}</h4>
+        </div>
+    </div>
+</div>
+</div>

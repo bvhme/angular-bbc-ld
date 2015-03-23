@@ -1,4 +1,4 @@
-// Generated on 2015-03-22 using generator-angular 0.11.1
+// Generated on 2015-03-23 using generator-angular 0.11.1
 'use strict';
 
 // # Globbing
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'angular-bbc-ld/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -82,12 +82,12 @@ module.exports = function (grunt) {
                 connect.static('./bower_components')
               ),
               connect().use(
-                '/angular-bbc-ld',
-                connect.static('./angular-bbc-ld')
-              ),
-              connect().use(
                 '/app/styles',
                 connect.static('./app/styles')
+              ),
+              connect().use(
+                '/angular-bbc-ld',
+                connect.static('./angular-bbc-ld')
               ),
               connect.static(appConfig.app)
             ];
@@ -127,8 +127,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js', 
-          'angular-bbc-ld/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
         ]
       },
       test: {
@@ -205,16 +204,16 @@ module.exports = function (grunt) {
     },
 
     // Renames files for browser caching purposes
-    // filerev: {
-    //   dist: {
-    //     src: [
-    //       '<%= yeoman.dist %>/scripts/{,*/}*.js',
-    //       '<%= yeoman.dist %>/styles/{,*/}*.css',
-    //       '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-    //       '<%= yeoman.dist %>/styles/fonts/*'
-    //     ]
-    //   }
-    // },
+    filerev: {
+      dist: {
+        src: [
+          '<%= yeoman.dist %>/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/styles/{,*/}*.css',
+          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/styles/fonts/*'
+        ]
+      }
+    },
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -271,13 +270,7 @@ module.exports = function (grunt) {
     //   }
     // },
     // concat: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.concat.js'
-    //       ]
-    //     }
-    //   }
+    //   dist: {}
     // },
 
     imagemin: {
@@ -361,6 +354,11 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {

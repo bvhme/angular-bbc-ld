@@ -1,0 +1,330 @@
+<div class="page-header">
+    <div class="container">
+        <h1>Juicer Triplestore <small>Sandbox</small></h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel-heading">
+                Query
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a ng-click="queryType='getThing'">Get Thing</a></li>
+                <li role="presentation"><a ng-click="queryType='findThingsMultiHop'">Find Things Multi-hop</a></li>
+                <li role="presentation"><a ng-click="queryType='findCreativeWorks'">Find Creative Works</a></li>
+                <li role="presentation"><a ng-click="queryType='findCreativeWorksMultiHop'">Find Creative Works Multi Hop</a></li>
+                <li role="presentation"><a ng-click="queryType='findCreativeWorksGeospatial'">Find Creative Works Geospatial</a></li>
+                <li role="presentation"><a ng-click="queryType='findCreativeWorksGeoMultiHop'">Find Creative Works Geospacial Multi-hop</a></li>
+                <li role="presentation"><a ng-click="queryType='findTaggedThingsMultiHop'">Find Tagged Things Multi-hop</a></li>
+                <li role="presentation"><a ng-click="queryType='findThingsOccurrencesMultiHop'">Find Things Occurrences Multi-hop</a></li>
+                <li role="presentation"><a ng-click="queryType='findThingsCoOccurrencesMultiHop'">Find Things Co-occurrences Multi-hop</a></li>
+            </ul>
+        </div>
+        <div class="panel col-md-8">
+            <div class="panel-body" ng-show="queryType=='getThing'">
+                <h2>Get Thing</h2>
+                <form ng-submit="action.getThing(getThingQuery)">
+                    <div class="form-group">
+                        <label>uri</label>
+                        <input type="text" ng-model="getThingQuery.uri" name="text" class="form-control" />
+                        <p class="help-block">The URI of the thing to retrieve</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="getThingQuery.limit" name="text" class="form-control" />
+                        <p class="help-block">integer - max number of creative works to return</p>
+                        <label>createdBy</label>
+                        <input type="text" ng-model="getThingQuery.createdBy" name="text" class="form-control" />
+                        <p class="help-block">URI - optional filter associated creative works by the NewsService (source) they were createdBy</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{getThingQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findThingsMultiHop'">
+                <h2>Find Things Multi-hop</h2>
+                <p class="lead">Finds things in the knowledge base. Useful for building typeahead fields to find things. Use a multihop join to find things via some relationship in the wider DBpedia knowledge graph. Typical use-case is for type-ahead find widgets</p>
+                <form ng-submit="action.findThingsMultiHop(findThingsMultiHopQuery)">
+                    <div class="form-group">
+                        <label>query</label>
+                        <input type="text" ng-model="findThingsMultiHopQuery.query" name="text" class="form-control" />
+                        <p class="help-block">string - optional a full text search term</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findThingsMultiHopQuery.limit" name="text" class="form-control" />
+                        <p class="help-block">integer - max num of suggestions to return</p>
+                        <label>type</label>
+                        <input type="text" ng-model="findThingsMultiHopQuery.type" name="text" class="form-control" />
+                        <p class="help-block">optional URI defining the ontology class to filter things on - multiple types can be specified</p>
+                        <label>joinPredicate</label>
+                        <input type="text" ng-model="findThingsMultiHopQuery.joinPredicate" name="text" class="form-control" />
+                        <p class="help-block">optional predicate URI from DBpedia ontology that concepts found will be joined with</p>
+                        <label>joinObject</label>
+                        <input type="text" ng-model="findThingsMultiHopQuery.joinObject" name="text" class="form-control" />
+                        <p class="help-block">optional thing URI from DBpedia ontology that concepts found will be joined with via the join-predicate</p>
+                        <input type="text" ng-model="findThingsMultiHopQuery.text" name="text" class="form-control" />
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findThingsMultiHopQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findCreativeWorks'">
+                <h2>Find Creative Works</h2>
+                <p class="lead">A semantic search for creative work using tagged concepts</p>
+                <form ng-submit="action.findCreativeWorks(findCreativeWorksQuery)">
+                    <div class="form-group">
+                        <label>tag</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.tag" name="tag" class="form-control" />
+                        <p class="help-block"> URI of a concept - multiple tag parameters can be used</p>
+                        <label>tagOperation</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.tagOperation" name="tagOperation" class="form-control" />
+                        <p class="help-block"> {and | or | fingerprint} The operations to apply to the supplied tags. Default is 'and'. 'fingerprint' returns creative works best matching the set of tags supplied. (Warning fingerprint search is not fast!)</p>
+                        <label>beforeDate</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block"> optional date in YYYY-MM-DD format defining the date before which articles were published</p>
+                        <label>afterDate</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block"> optional date in YYYY-MM-DD format defining the date after which articles were published</p>
+                        <label>createdBy</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.createdBy" name="createdBy" class="form-control" />
+                        <p class="help-block"> optionally filter by NewsService (source) using cwork:createdBy URIs</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block"> integer - max number of articles to return, default 10</p>
+                        <label>offset</label>
+                        <input type="text" ng-model="findCreativeWorksQuery.offset" name="offset" class="form-control" />
+                        <p class="help-block">integer - offset to start results from to allow for paging / infinite scroll</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findCreativeWorksQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findCreativeWorksMultiHop'">
+                <h2>Find Creative Works Multi Hop</h2>
+                <p class="lead">A multi-hop semantic search for creative work via the graph of tagged concepts The DBpedia ontology is used extensively as abacking knowledge graph. All classes and predicates from this ontollogy are exposed. See: <a href="http://dbpedia.org/ontology">http://dbpedia.org/ontology</a></p>
+                <form ng-submit="action.findCreativeWorksMultiHop(findCreativeWorksMultiHopQuery)">
+                    <div class="form-group">
+                        <label>aboutTagType</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.aboutTagType" name="aboutTagType" class="form-control" />
+                        <p class="help-block">Ontology class URI, find creative works by the type (class) of thing they are tagged with, eg http://dbpedia.org/ontology/Person</p>
+                        <label>aboutTagPredicate</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.aboutTagPredicate" name="aboutTagPredicate" class="form-control" />
+                        <p class="help-block">Ontology predicate URI - find creative works tagged with concepts that have wider associations with this predicate. eg http://dbpedia.org/ontology/party</p>
+                        <label>aboutTagObject</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.aboutTagObject" name="aboutTagObject" class="form-control" />
+                        <p class="help-block">Concept URI - find creative works tagged with concepts that have wider associations where the about-tag-predicate is associated with this object/concept. eg http://dbpedia.org/resource/ConservativeParty(UK)</p>
+                        <label>tag</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.tag" name="tag" class="form-control" />
+                        <p class="help-block">URI of a concept - multiple tag parameters can be used</p>
+                        <label>tagOperation</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.tagOperation" name="tagOperation" class="form-control" />
+                        <p class="help-block">{and | or | fingerprint} The operations to apply to the supplied tags. Default is 'and'. 'fingerprint' returns creative works best matching the set of tags supplied. (Warning fingerprint search is not fast!)</p>
+                        <label>beforeDate</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date before which articles were published</p>
+                        <label>afterDate</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date after which articles were published</p>
+                        <label>createdBy</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.createdBy" name="createdBy" class="form-control" />
+                        <p class="help-block">optionally filter by NewsService (source) using cwork:createdBy URIs</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max number of articles to return, default 10</p>
+                        <label>offset</label>
+                        <input type="text" ng-model="findCreativeWorksMultiHopQuery.offset" name="offset" class="form-control" />
+                        <p class="help-block">integer - offset to start results from to allow for paging / infinite scroll</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findCreativeWorksMultiHopQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findCreativeWorksGeospatial'">
+                <h2>Find Creative Works Geospatial</h2>
+                <p class="lead">A geospatial semantic search for creative work. Finds creative works tagged with places with a radius of a supplied latitude and longitude.</p>
+                <form ng-submit="action.findCreativeWorksGeospatial(findCreativeWorksGeospatialQuery)">
+                    <div class="form-group">
+                        <label>point</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.point" name="point" class="form-control" />
+                        <p class="help-block">{lat,long}, eg: 51.5,-1.0</p>
+                        <label>radius</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.radius" name="radius" class="form-control" />
+                        <p class="help-block">{Nmi|km}, eg 10mi , 20km</p>
+                        <label>tag</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.tag" name="tag" class="form-control" />
+                        <p class="help-block">URI of a concept - multiple tag parameters can be used</p>
+                        <label>tagop</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.tagop" name="tagop" class="form-control" />
+                        <p class="help-block">{and | or | fingerprint} The operations to apply to the supplied tags. Default is 'and'. 'fingerprint' returns creative works best matching the set of tags supplied. (Warning fingerprint search is not fast!)</p>
+                        <label>beforeDate</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date before which articles were published</p>
+                        <label>afterDate</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date after which articles were published</p>
+                        <label>createdBy</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.createdBy" name="createdBy" class="form-control" />
+                        <p class="help-block">optionally filter by NewsService (source) using cwork:createdBy URIs</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max number of articles to return, default 10</p>
+                        <label>offset</label>
+                        <input type="text" ng-model="findCreativeWorksGeospatialQuery.offset" name="offset" class="form-control" />
+                        <p class="help-block">integer - offset to start results from to allow for paging / infinite scroll</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findCreativeWorksGeospatialQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findCreativeWorksGeoMultiHop'">
+                <h2>Find Creative Works Geospacial Multi-hop</h2>
+                <p class="lead">A geospatial multi-hop semantic search for creative work via the graph of tagged concepts within a radius of some location.
+                </p>
+                <form ng-submit="action.findCreativeWorksGeoMultiHop(findCreativeWorksGeoMultiHopQuery)">
+                    <div class="form-group">
+                        <label>point</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.point" name="point" class="form-control" />
+                        <p class="help-block">{lat,long}, eg: 51.5,-1.0</p>
+                        <label>radius</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.radius" name="radius" class="form-control" />
+                        <p class="help-block">{Nmi|km}, eg 10mi , 20km</p>
+                        <label>aboutTagType</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.aboutTagType" name="aboutTagType" class="form-control" />
+                        <p class="help-block">Ontology class URI, find creative works by the type (class) of thing they are tagged with, eg http://dbpedia.org/ontology/Person</p>
+                        <label>aboutTagPredicate</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.aboutTagPredicate" name="aboutTagPredicate" class="form-control" />
+                        <p class="help-block">Ontology predicate URI - find creative works tagged with concepts that have wider associations with this predicate. eg http://dbpedia.org/ontology/party</p>
+                        <label>aboutTagObject</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.aboutTagObject" name="aboutTagObject" class="form-control" />
+                        <p class="help-block">Concept URI - find creative works tagged with concepts that have wider associations where the about-tag-predicate is associated with this object/concept. eg http://dbpedia.org/resource/ConservativeParty(UK)</p>
+                        <label>tag</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.tag" name="tag" class="form-control" />
+                        <p class="help-block">URI of a concept - multiple tag parameters can be used</p>
+                        <label>tagOperation</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.tagOperation" name="tagOperation" class="form-control" />
+                        <p class="help-block">{and | or | fingerprint} The operations to apply to the supplied tags. Default is 'and'. 'fingerprint' returns creative works best matching the set of tags supplied. (Warning fingerprint search is not fast!)</p>
+                        <label>beforeDate</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date before which articles were published</p>
+                        <label>afterDate</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block">optional date in YYYY-MM-DD format defining the date after which articles were published</p>
+                        <label>createdBy</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.createdBy" name="createdBy" class="form-control" />
+                        <p class="help-block">optionally filter by NewsService (source) using cwork:createdBy URIs</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max number of articles to return, default 10</p>
+                        <label>offset</label>
+                        <input type="text" ng-model="findCreativeWorksGeoMultiHopQuery.offset" name="offset" class="form-control" />
+                        <p class="help-block">integer - offset to start results from to allow for paging / infinite scroll </p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findCreativeWorksGeoMultiHopQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findTaggedThingsMultiHop'">
+                <h2>Find Tagged Things Multi-hop</h2>
+                <p class="lead">Finds things in the knowledge base using a full text search term. Useful for building type ahead fields to find things. Returns only things that have been tagged on creative works. Use a multihop join to find concepts via some relationship in the wider DBpedia knowledge graph. Typical use-case is for type-ahead find widgets</p>
+                <form ng-submit="action.findTaggedThingsMultiHop(findTaggedThingsMultiHopQuery)">
+                    <div class="form-group">
+                        <label>query</label>
+                        <input type="text" ng-model="findTaggedThingsMultiHopQuery.query" name="query" class="form-control" />
+                        <p class="help-block">string - optional -a full text search term</p>
+                        <label>limit</label>
+                        <input type="text" ng-model="findTaggedThingsMultiHopQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max num of suggested things to return</p>
+                        <label>type</label>
+                        <input type="text" ng-model="findTaggedThingsMultiHopQuery.type" name="type" class="form-control" />
+                        <p class="help-block">optional URI defining the ontology class to filter things on - multiple types can be specified</p>
+                        <label>joinPredicate</label>
+                        <input type="text" ng-model="findTaggedThingsMultiHopQuery.joinPredicate" name="joinPredicate" class="form-control" />
+                        <p class="help-block">optional predicate URI from DBpedia ontology that things found will be joined with</p>
+                        <label>joinObject</label>
+                        <input type="text" ng-model="findTaggedThingsMultiHopQuery.joinObject" name="joinObject" class="form-control" />
+                        <p class="help-block">optional concept URI from DBpedia ontology that concepts found will be joined with via the join-predicate</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findTaggedThingsMultiHopQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findThingsOccurrencesMultiHop'">
+                <h2>Find Things Occurrences Multi-hop</h2>
+                <p class="lead">Finds most frequently tagged things in the knowledge base.</p>
+                <form ng-submit="action.findThingsOccurrencesMultiHop(findThingsOccurrencesMultiHopQuery)">
+                    <div class="form-group">
+                        <label>limit</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max num of things to return</p>
+                        <label>type</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.type" name="type" class="form-control" />
+                        <p class="help-block">optional/multiple URI defining the ontology class to filter things on</p>
+                        <label>beforeDate</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block">date in YYYY-MM-DD format defining the date before which tag frequencies should be calculated</p>
+                        <label>afterDate</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block">date in YYYY-MM-DD format defining the date after which tag frequencies should be calculated</p>
+                        <label>joinPredicate</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.joinPredicate" name="joinPredicate" class="form-control" />
+                        <p class="help-block">optional predicate URI from DBpedia ontology that things found will be joined with</p>
+                        <label>joinObject</label>
+                        <input type="text" ng-model="findThingsOccurrencesMultiHopQuery.joinObject" name="joinObject" class="form-control" />
+                        <p class="help-block">optional thing URI from DBpedia ontology that things found will be joined with via the join-predicate</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findThingsOccurrencesMultiHopQuery}}</pre>
+            </div>
+            <div class="panel-body" ng-show="queryType=='findThingsCoOccurrencesMultiHop'">
+                <h2>Find Things Co-occurrences Multi-hop</h2>
+                <p class="lead">Finds most frequently tagged things in the knowledge base, co-occurring with a supplied thing
+                </p>
+                <form ng-submit="action.findThingsCoOccurrencesMultiHop(findThingsCoOccurrencesMultiHopQuery)">
+                    <div class="form-group">
+                        <label for="uri">uri</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.uri" name="uri" class="form-control" />
+                        <p class="help-block">URI of a thing to find co-occurrences with</p>
+                        <label for="limit">limit</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.limit" name="limit" class="form-control" />
+                        <p class="help-block">integer - max num of things to return</p>
+                        <label for="type">type</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.type" name="type" class="form-control" />
+                        <p class="help-block">optional/multiple URI defining the ontology class to filter things on</p>
+                        <label for="beforeDate">beforeDate</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.beforeDate" name="beforeDate" class="form-control" />
+                        <p class="help-block">date in YYYY-MM-DD format defining the date before which tag frequencies should be calculated</p>
+                        <label for="afterDate">afterDate</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.afterDate" name="afterDate" class="form-control" />
+                        <p class="help-block">date in YYYY-MM-DD format defining the date after which tag frequencies should be calculated</p>
+                        <label for="joinPredicate">joinPredicate</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.joinPredicate" name="joinPredicate" class="form-control" />
+                        <p class="help-block">optional predicate URI from DBpedia ontology that things found will be joined with</p>
+                        <label for="joinObject">joinObject</label>
+                        <input type="text" ng-model="findThingsCoOccurrencesMultiHopQuery.joinObject" name="joinObject" class="form-control" />
+                        <p class="help-block">optional thing URI from DBpedia ontology that things found will be joined with via the join-predicate</p>
+                    </div>
+                    <input type="submit" id="submit" value="Submit" class="btn btn-primary" />
+                </form>
+                <h4>Preview</h4>
+                <pre>{{findThingsCoOccurrencesMultiHopQuery}}</pre>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                Response {{responseStatus}}
+            </div>
+            <div class="panel-body">
+                <div hljs source="response"></div>
+            </div>
+        </div>
+    </div>
+</div>
