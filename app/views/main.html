@@ -7,7 +7,7 @@
 
 <div class="responses" ng-repeat="response in responses">
 <div ng-hide="response.status === 200" class="error">
-	<h3>{{response.config["url"]}}</h3>
+	<h3>{{response.config["url"] | decodeURI}}</h3>
 	<pre>
 		{{response}}
 	</pre>
