@@ -9,7 +9,7 @@
  */
 angular.module('bbcld', ['angular-sha1']);
 
-// When loading the module, set the constants to the right settings
+// When loading the module, set the constants to the right settings, but you might want to hide this from your repo
 
 /*
 
