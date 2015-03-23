@@ -1,25 +1,25 @@
 'use strict';
 /**
  * @ngdoc service
- * @name bbcld.juicer3
+ * @name bbcld.juicerTriplestore
  * @description
  * # Juicer Triplestore
  * Module to do API calls to the Juicer Triplestore
  */
 angular.module('bbcld')
-    .service('juicer3', ['$http', '$q', '$log', '$filter', 'juicer3settings',
-        function($http, $q, $log, $filter, juicer3settings) {
+    .service('juicerTriplestore', ['$http', '$q', '$log', '$filter', 'juicerTriplestoresettings',
+        function($http, $q, $log, $filter, juicerTriplestoresettings) {
             // AngularJS will instantiate a singleton by calling 'new' on this 
             // function, so 'this' object will be returned
             var factory = this;
 
             // Check if the required setup has been done, and if not, throw a fit! Ehm, I mean error.
-            if (!juicer3settings.host) {
-                $log.error('There is no Host specified for the juicer3, thus API calls will be futile.');
+            if (!juicerTriplestoresettings.host) {
+                $log.error('There is no Host specified for the juicerTriplestore, thus API calls will be futile.');
                 return null;
             }
-            if (!juicer3settings.apikey) {
-                $log.error('There is no API Key specified for the juicer3, thus API calls will be futile.');
+            if (!juicerTriplestoresettings.apikey) {
+                $log.error('There is no API Key specified for the juicerTriplestore, thus API calls will be futile.');
                 return null;
             }
 
@@ -52,7 +52,7 @@ angular.module('bbcld')
                 params = makeSureIsObject(params);
 
                 // Add the API key to the parameters object
-                params.apikey = juicer3settings.apikey;
+                params.apikey = juicerTriplestoresettings.apikey;
 
                 // Start the string of
                 var paramsString = '?';
@@ -87,7 +87,7 @@ angular.module('bbcld')
 
                 // Create the URL out of the different bits needed
                 var paramsString = buildURLParams(params);
-                var getUrl = juicer3settings.host + endpoint + paramsString;
+                var getUrl = juicerTriplestoresettings.host + endpoint + paramsString;
 
                 // Do the actual request and resolve or reject the promise 
                 // when done

@@ -31,7 +31,7 @@ var fail = function(data) {
     $log.error(data);
     $scope.responses.push(data);
 };
-juicer3.findThingCoOccurrencesMultiHop({
+juicerTriplestore.findThingCoOccurrencesMultiHop({
     type: 'http://dbpedia.org/ontology/Person',
     joinPredicate: 'http://dbpedia.org/ontology/party',
     joinObject: 'http://dbpedia.org/resource/Labour_Party_(UK)',
@@ -124,15 +124,15 @@ juicer.getSources({_params_})
 Keyword to search for. It searches in name of the source.
 
 
-## Module: Triplestore
+## Module: Juicer Triplestore
 Returns: JSON-LD
-Include: `juicer3.service.js`
+Include: `juicerTriplestore.service.js`
 Dependencies: `angular-sha1`
 
 ### Settings Set Up
 ```javascript
 .module('app')
-.constant('juicer3settings', {
+.constant('juicerTriplestoresettings', {
 apikey: APIKEY,
 host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
 });
@@ -140,7 +140,7 @@ host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
 
 #### Get Thing
 ```javascript
-juicer3.getThing({_params_})
+juicerTriplestore.getThing({_params_})
 ```
 
 `uri`:
@@ -155,7 +155,7 @@ URI - optional filter associated creative works by the NewsService (source) they
 
 #### Find Things Multi-hop
 ```javascript
-juicer3.findThingsMultiHop({_params_})
+juicerTriplestore.findThingsMultiHop({_params_})
 ```
 
 Finds things in the knowledge base. Useful for building typeahead fields to find things. Use a multihop join to find things via some relationship in the wider DBpedia knowledge graph.
@@ -179,7 +179,7 @@ optional thing URI from DBpedia ontology that concepts found will be joined with
 
 #### Find Creative Works
 ```javascript
-juicer3.findCreativeWorks({_params_})
+juicerTriplestore.findCreativeWorks({_params_})
 ```
 
 A semantic search for creative work using tagged concepts
@@ -207,7 +207,7 @@ integer - offset to start results from to allow for paging / infinite scroll
 
 #### Find Creative Works Multi Hop
 ```javascript
-juicer3.findCreativeWorksMultiHop({_params_})
+juicerTriplestore.findCreativeWorksMultiHop({_params_})
 ```
 
 A multi-hop semantic search for creative work via the graph of tagged concepts
@@ -245,7 +245,7 @@ integer - offset to start results from to allow for paging / infinite scroll
 
 #### Find Creative Works Geospatial
 ```javascript
-juicer3.findCreativeWorksGeospatial({_params_})
+juicerTriplestore.findCreativeWorksGeospatial({_params_})
 ```
 
 A geospatial semantic search for creative work. Finds creative works tagged with places with a radius of a supplied latitude and longitude.
@@ -279,7 +279,7 @@ integer - offset to start results from to allow for paging / infinite scroll
 
 #### Find Creative Works Geospacial Multi-hop
 ```javascript
-juicer3.findCreativeWorksGeoMultiHop({_params_})
+juicerTriplestore.findCreativeWorksGeoMultiHop({_params_})
 ```
 
 Combining geospatial with graph search.
@@ -324,7 +324,7 @@ integer - offset to start results from to allow for paging / infinite scroll
 
 #### Find Tagged Things Multi-hop
 ```javascript
-juicer3.findTaggedThingsMultiHop({_params_})
+juicerTriplestore.findTaggedThingsMultiHop({_params_})
 ```
 
 Finds things in the knowledge base using a full text search term. Useful for building type ahead fields to find things. Returns only things that have been tagged on creative works. Use a multihop join to find concepts via some relationship in the wider DBpedia knowledge graph.
@@ -347,7 +347,7 @@ optional concept URI from DBpedia ontology that concepts found will be joined wi
 
 #### Find Things Occurrences Multi-hop
 ```javascript
-juicer3.findThingsOccurrencesMultiHop({_params_})
+juicerTriplestore.findThingsOccurrencesMultiHop({_params_})
 ```
 
 Finds most frequently tagged things in the knowledge base.
@@ -372,7 +372,7 @@ optional thing URI from DBpedia ontology that things found will be joined with v
 
 #### Find Things Co-occurrences Multi-hop
 ```javascript
-juicer3.findThingsCoOccurrencesMultiHop({_params_})
+juicerTriplestore.findThingsCoOccurrencesMultiHop({_params_})
 ```
 
 Finds most frequently tagged things in the knowledge base, co-occurring with a supplied thing
@@ -428,7 +428,7 @@ angular
         apikey: APIKEY,
         host: 'http://data.test.bbc.co.uk/bbcrd-juicer/'
     })
-    .constant('juicer3settings', {
+    .constant('juicerTriplestoresettings', {
         apikey: APIKEY,
         host: 'http://data.test.bbc.co.uk/v1/bbcrd-newslabs/'
     });

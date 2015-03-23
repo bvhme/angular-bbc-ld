@@ -8,8 +8,8 @@
  * Controller of the angularBbcLdApp
  */
 angular.module('angularBbcLdApp')
-    .controller('MainCtrl', ['$scope', 'juicer', 'juicer3', 'things', '$log',
-        function($scope, juicer, juicer3, things, $log) {
+    .controller('MainCtrl', ['$scope', 'juicer', 'juicerTriplestore', 'things', '$log',
+        function($scope, juicer, juicerTriplestore, things, $log) {
             $scope.responses = [];
             var success = function(data) {
                 $log.info(data);
@@ -30,32 +30,32 @@ angular.module('angularBbcLdApp')
             things.getById('e68c5b82-50e8-47d8-953c-bf61a2de0a85').then(success, fail);
             things.getByUri('http://www.bbc.co.uk/things/e68c5b82-50e8-47d8-953c-bf61a2de0a85').then(success, fail);
 
-            juicer3.getThing({
+            juicerTriplestore.getThing({
                 uri: 'http://dbpedia.org/resource/Barack_Obama',
                 limit: 5,
             }).then(success, fail);
-            juicer3.findThingsMultiHop({
+            juicerTriplestore.findThingsMultiHop({
                 joinPredicate: 'http://purl.org/dc/terms/subject',
                 joinObject: 'http://dbpedia.org/resource/Category:United_Kingdom_Independence_Party_politicians',
                 limit: 200
             }).then(success, fail);
-            juicer3.findCreativeWorks({
+            juicerTriplestore.findCreativeWorks({
                 joinObject: 'http://dbpedia.org/resource/Category:United_Kingdom_Independence_Party_politicians',
                 limit: 200
             }).then(success, fail);
-            juicer3.findCreativeWorksMultiHop({
+            juicerTriplestore.findCreativeWorksMultiHop({
                 aboutTagType: 'http://dbpedia.org/ontology/Person',
                 aboutTagPredicate: 'http://dbpedia.org/ontology/party',
                 aboutTagObject: 'http://dbpedia.org/resource/Conservative_Party_(UK)',
                 limit: 5,
                 afterDate: '2000-01-01'
             }).then(success, fail);
-            juicer3.findCreativeWorksGeospatial({
+            juicerTriplestore.findCreativeWorksGeospatial({
                 point: '53.38,-1.47',
                 radius: '15km',
                 limit: 5
             }).then(success, fail);
-            juicer3.findCreativeWorksGeoMultiHop({
+            juicerTriplestore.findCreativeWorksGeoMultiHop({
                 aboutTagType: 'http://dbpedia.org/ontology/Person',
                 aboutTagPredicate: 'http://dbpedia.org/ontology/team',
                 aboutTagObject: 'http://dbpedia.org/resource/Manchester_United_F.C.',
@@ -63,19 +63,19 @@ angular.module('angularBbcLdApp')
                 radius: '15km',
                 limit: 5
             }).then(success, fail);
-            juicer3.findTaggedThingsMultiHop({
+            juicerTriplestore.findTaggedThingsMultiHop({
                 query: 'dav',
                 joinPredicate: 'http://dbpedia.org/ontology/party',
                 joinObject: 'http://dbpedia.org/resource/Conservative_Party_(UK)',
                 limit: 10
             }).then(success, fail);
-            juicer3.findThingOccurrencesMultiHop({
+            juicerTriplestore.findThingsOccurrencesMultiHop({
                 type: 'http://dbpedia.org/ontology/Person',
                 joinPredicate: 'http://purl.org/dc/terms/subject',
                 joinObject: 'http://dbpedia.org/resource/Category:Conservative_Party_(UK)_MPs',
                 limit: 10
             }).then(success, fail);
-            juicer3.findThingCoOccurrencesMultiHop({
+            juicerTriplestore.findThingsCoOccurrencesMultiHop({
                 type: 'http://dbpedia.org/ontology/Person',
                 joinPredicate: 'http://dbpedia.org/ontology/party',
                 joinObject: 'http://dbpedia.org/resource/Labour_Party_(UK)',
